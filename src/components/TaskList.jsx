@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
-import { TasksContext, TasksDispatchContext } from "./TaskContext";
+import { useState } from "react";
+import { useTasks, useTasksDispatch } from "./TaskContext";
 
 export default function TaskList({}) {
-    const tasks = useContext(TasksContext);
+    const tasks = useTasks();
     return (
         <ul>
             {tasks.map(task => (
@@ -16,7 +16,7 @@ export default function TaskList({}) {
 
 function Task ({task}) {
     const [editing, setEditing] = useState(false);
-    const dispatch = useContext(TasksDispatchContext);
+    const dispatch = useTasksDispatch();
     let taskContent;
     if (editing) {
         taskContent = (
