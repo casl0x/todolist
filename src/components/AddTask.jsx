@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useState} from "react";
 
 let nextId = 0;
 
-export default function AddTask() {
+export default function AddTask({ onAdd }) {
     const [newTask, setNewTask] = useState('');
-    const [tasks, setTasks] = useState([]);
 
     return (
         <>
@@ -14,32 +13,20 @@ export default function AddTask() {
             >
                 <label htmlFor="task">New Task</label>
                 <input 
-                value={newTask} 
-                onChange={e => setNewTask(e.target.value)}
-                type="text" 
-                id="task"
+                    type="text" 
+                    id="task"                
+                    value={newTask} 
+                    onChange={e => setNewTask(e.target.value)}
                 />
                 <button 
                     onClick={() => {
-                        setTasks([...tasks, {id: nextId++, newTask: newTask }])
+                        setTasks('');
+                        onAdd(newTask);
                     }}
                     type="submit"
                     className="btn"
                 >Add</button>
             </form>
-            <section>
-                <h2>Task to do</h2>
-                <ul>
-                    {tasks.map(task => (
-                        <li key={task.id}>{task.newTask}
-                            <button onClick={() => {
-                                setTasks(tasks.filter(t => t.id !== task.id));
-                            }}
-                            >delete</button>
-                        </li>
-                    ))}
-                </ul>
-            </section>
         </>
     );
 }
