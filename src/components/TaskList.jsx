@@ -1,33 +1,36 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { TasksContext, TasksDispatchContext } from "./TaskContext";
 
-export default function TaskList({tasks, onChangeTask, onDeleteTask}) {
+export default function TaskList({}) {
+    const tasks = useContext(TasksContext);
     return (
         <ul>
-        {tasks.map(task => (
-            <li key={task.id}>
-                <Task 
-                task={task}
-                onChange={onChangeTask}
-                onDelete={onDeleteTask} />
-            </li>
-        ))}
-    </ul>
-    )
+            {tasks.map(task => (
+                <li key={task.id}>
+                    <Task task={task} />
+                </li>
+            ))}
+        </ul>
+    );
 }
 
-function Task ({task, onChange, onDelete}) {
+function Task ({task}) {
     const [editing, setEditing] = useState(false);
+    const dispatch = useContext(TasksDispatchContext);
     let taskContent;
     if (editing) {
         taskContent = (
             <>
                 <input 
                     type="text"
-                    value={task.newTask}
+                    value={task.text}
                     onChange={ e => {
-                        onChange({
-                            ...task,
-                            newTask: e.target.value
+                        dispatch({
+                            type: 'changed',
+                            task: {
+                                ...task,
+                                text: e.target.value
+                            }
                         });
                     }}
                 />
@@ -37,7 +40,7 @@ function Task ({task, onChange, onDelete}) {
     } else {
         taskContent = (
             <>
-                {task.newTask}
+                {task.text}
                 <button onClick={() => setEditing(true)}>Edit</button>
             </>
         );
@@ -48,14 +51,24 @@ function Task ({task, onChange, onDelete}) {
                 type="checkbox"
                 checked={task.done}
                 onChange={e => {
-                    onChange({
+                    dispatch({
+                        type: 'changed',
+                        task: {
                         ...task,
                         done: e.target.checked
-                    })
+                        }
+                    });
                 }} 
             />
             {taskContent}
-            <button onClick={() => onDelete(task.id)}>Delete</button>
+            <button onClick={() => {
+                dispatch({
+                    type:'deleted',
+                    id: task.id
+                })
+            }}>
+                Delete
+            </button>
         </label>
     )
 }

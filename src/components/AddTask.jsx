@@ -1,9 +1,9 @@
-import { useState} from "react";
+import { useContext, useState} from "react";
+import { TasksDispatchContext } from "./TaskContext";
 
-let nextId = 0;
-
-export default function AddTask({ onAdd }) {
-    const [newTask, setNewTask] = useState('');
+export default function AddTask({}) {
+    const [text, setText] = useState('');
+    const dispatch = useContext(TasksDispatchContext);
 
     return (
         <>
@@ -15,13 +15,17 @@ export default function AddTask({ onAdd }) {
                 <input 
                     type="text" 
                     id="task"                
-                    value={newTask} 
-                    onChange={e => setNewTask(e.target.value)}
+                    value={text} 
+                    onChange={e => setText(e.target.value)}
                 />
                 <button 
                     onClick={() => {
-                        setTasks('');
-                        onAdd(newTask);
+                        setText('');
+                        dispatch({
+                            type: 'added',
+                            id: nextId++,
+                            text: text,
+                        })
                     }}
                     type="submit"
                     className="btn"
@@ -30,3 +34,5 @@ export default function AddTask({ onAdd }) {
         </>
     );
 }
+
+let nextId = 3;
