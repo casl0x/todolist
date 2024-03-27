@@ -1,15 +1,19 @@
-import { useState} from "react";
-import { useTasksDispatch } from "./TaskContext";
+import { useState } from "react";
 
-export default function AddTask({}) {
+export default function AddTask({ onAddTask }) {
     const [text, setText] = useState('');
-    const dispatch = useTasksDispatch();
 
     return (
         <>
             <form 
                 className="add-tasks" 
-                onSubmit={e => {e.preventDefault()}}
+                onSubmit={e => {
+                    e.preventDefault();
+                    if (text.trim()) {
+                        onAddTask(text);
+                        setText('');
+                    }
+                }}
             >
                 <label htmlFor="task">New Task</label>
                 <input 
@@ -17,15 +21,12 @@ export default function AddTask({}) {
                     id="task"                
                     value={text} 
                     onChange={e => setText(e.target.value)}
+                    placeholder="Enter Task"
                 />
                 <button 
                     onClick={() => {
                         setText('');
-                        dispatch({
-                            type: 'added',
-                            id: nextId++,
-                            text: text,
-                        })
+                        onAddTask(text)
                     }}
                     type="submit"
                     className="btn"
@@ -34,5 +35,3 @@ export default function AddTask({}) {
         </>
     );
 }
-
-let nextId = 3;

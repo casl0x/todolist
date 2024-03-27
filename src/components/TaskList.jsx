@@ -1,22 +1,23 @@
 import { useState } from "react";
-import { useTasks, useTasksDispatch } from "./TaskContext";
 
-export default function TaskList({}) {
-    const tasks = useTasks();
+export default function TaskList({tasks, onChangeTask, onDeleteTask}) {
     return (
         <ul>
             {tasks.map(task => (
                 <li key={task.id}>
-                    <Task task={task} />
+                    <Task 
+                        task={task}
+                        onChange={onChangeTask}
+                        onDelete={onDeleteTask}
+                    />
                 </li>
             ))}
         </ul>
     );
 }
 
-function Task ({task}) {
+function Task ({task, onChange, onDelete}) {
     const [editing, setEditing] = useState(false);
-    const dispatch = useTasksDispatch();
     let taskContent;
     if (editing) {
         taskContent = (
@@ -25,12 +26,9 @@ function Task ({task}) {
                     type="text"
                     value={task.text}
                     onChange={ e => {
-                        dispatch({
-                            type: 'changed',
-                            task: {
-                                ...task,
-                                text: e.target.value
-                            }
+                        onChange({
+                            ...task,
+                            text: e.target.value
                         });
                     }}
                 />
@@ -51,22 +49,14 @@ function Task ({task}) {
                 type="checkbox"
                 checked={task.done}
                 onChange={e => {
-                    dispatch({
-                        type: 'changed',
-                        task: {
+                    onchange({
                         ...task,
                         done: e.target.checked
-                        }
                     });
                 }} 
             />
             {taskContent}
-            <button onClick={() => {
-                dispatch({
-                    type:'deleted',
-                    id: task.id
-                })
-            }}>
+            <button onClick={() => onDelete(task.id) }>
                 Delete
             </button>
         </label>
