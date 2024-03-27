@@ -1,85 +1,53 @@
-import { useEffect, useReducer } from "react";
-import AddTask from "./components/AddTask";
-import TaskList from "./components/TaskList";
+import { useEffect, useState } from "react";
+import { TodoProvider } from "./ContextTask";
+import TaskForm from "./components/AddTask";
+import Task from "./components/TaskList";
 
 export default function TodoList() {
-  const [tasks, dispatch] = useReducer( tasksReducer, initialTasks);
+    const [tasks, setTasks] = useState([]);
 
-  useEffect(() => {
-    const storedTasks = JSON.parse(localStorage.getItem('tasks'));
-    if (storedTasks){
-      dispatch({type: 'load', tasks: storedTasks})
+    const addTask = (task) => {
+        setTasks((prev) => [...prev, {id: Date.now(), ...task}])
     }
-  }, []);
 
-  useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks))
-  }, [tasks]);
+    const updateTask = (id, task) => {
+        setTasks((prev) => prev.map((t) => (t.id === id ? task : t )))
+    }
 
-  function handleAddTask(text) {
-    dispatch({
-      type: 'added',
-      id: nextId++,
-      text: text,
-    });
-  }
+    const deleteTask = (id) => {
+        setTasks((prev) => prev.filter((task) => task.id !== id ))
+    }
 
-  function handleChangeTask(task) {
-    dispatch({
-      type: 'changed',
-      task: task
-    });
-  }
+    const toggleComplete = (id) => {
+        setTasks((prev) => 
+            prev.map((t) => t.id === id ? {...t, completed: t.completed } : t)
+        )
+    }
 
-  function handleDeleteTask(taskId) {
-    dispatch({
-      type: 'deleted',
-      id: taskId
-    });
-  }
+    useEffect(() => {
+        const storedTasks = JSON.parse(localStorage.getItem("tasks"))
+        if (storedTasks && storedTasks.length > 0) {
+            setTasks(storedTasks)
+        }
+    }, [])
 
-  return (
-    <>
-      <h1>What do you have to do ?</h1>
-      <AddTask onAddTask={handleAddTask} />
-      <TaskList
-        tasks={tasks}
-        onChangeTask={handleChangeTask}
-        onDeleteTask={handleDeleteTask}
-      /> 
-    </>
-  );
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(tasks))
+    }, [tasks])
+
+    return (
+        <TodoProvider value={{ tasks, addTask, updateTask, deleteTask, toggleComplete }}>
+            <div>
+                <h1>What do you have to do ?</h1>
+                <TaskForm />
+            </div>
+            <div>
+                {tasks.map((task) => (
+                    <div key={task.id}>
+                        <Task task={task}/>
+                    </div>
+                ))}
+            </div>
+        </TodoProvider>
+    );
 }
-
-function tasksReducer(tasks, action) {
-  switch (action.type){
-      case 'added': {
-          return [...tasks, {
-              id: action.id,
-              text: action.text,
-              done: false
-          }];
-      }
-      case 'changed' : {
-          return tasks.map( t => {
-              if (t.id === action.task.id) {
-                  return action.task;
-              } else {
-                  return t; 
-              }                
-          });
-      }
-      case 'deleted' : {
-          return tasks.filter(t => t.id !== action.id);
-      }
-      case 'load': {
-        return action.tasks;
-      } 
-      default: {
-          throw Error('Uncknow action: ' + action.type);
-      }
-  }
-}
-
-let nextId = 0;
-const initialTasks = [];

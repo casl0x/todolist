@@ -1,64 +1,48 @@
 import { useState } from "react";
+import { useTodo } from "../ContextTask";
 
-export default function TaskList({tasks, onChangeTask, onDeleteTask}) {
-    return (
-        <ul>
-            {tasks.map(task => (
-                <li key={task.id}>
-                    <Task 
-                        task={task}
-                        onChange={onChangeTask}
-                        onDelete={onDeleteTask}
-                    />
-                </li>
-            ))}
-        </ul>
-    );
-}
-
-function Task ({task, onChange, onDelete}) {
+export default function Task ({task}) {
     const [editing, setEditing] = useState(false);
-    let taskContent;
-    if (editing) {
-        taskContent = (
-            <>
-                <input 
-                    type="text"
-                    value={task.text}
-                    onChange={ e => {
-                        onChange({
-                            ...task,
-                            text: e.target.value
-                        });
-                    }}
-                />
-                <button onClick={() => setEditing(false)}>Save</button>
-            </>
-        );
-    } else {
-        taskContent = (
-            <>
-                {task.text}
-                <button onClick={() => setEditing(true)}>Edit</button>
-            </>
-        );
-    }
+    const [msg, setMsg ] = useState(task.task)
+    const {updateTask, deleteTask, toggleComplete} = useTodo();
+
+    const editTask = () => {
+        updateTask(task.id, {...task, task: msg });
+        setEditing(false);
+    };
+
+    const toggleCompleted = () => { toggleComplete(task.id) }
+
     return (
-        <label>
+        <div>
             <input 
                 type="checkbox"
-                checked={task.done}
-                onChange={e => {
-                    onchange({
-                        ...task,
-                        done: e.target.checked
-                    });
-                }} 
+                checked={task.completed}
+                onChange={toggleCompleted}
             />
-            {taskContent}
-            <button onClick={() => onDelete(task.id) }>
+            <input 
+                type="text" 
+                className= {`${editing ? "edit-task" : "task"} ${task.completed ? "task-done" : "" }`} 
+                onChange={(e) => setMsg(e.target.value)}
+                readOnly={!editing}
+            />
+            <button 
+                onClick={() => {
+                    if (task.completed) return;
+                    if (editing) {
+                        editTask();
+                    } else {
+                        setEditing((prev) => !prev);
+                    }
+                }}
+                disabled={task.completed}
+            >
+                {editing ? 'Save' : 'Edit'}
+            </button>
+
+            <button onClick={() => deleteTask(task.id)}>
                 Delete
             </button>
-        </label>
+        </div>
     )
 }

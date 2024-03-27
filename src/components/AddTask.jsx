@@ -1,19 +1,21 @@
 import { useState } from "react";
+import { useTodo } from "../ContextTask";
 
-export default function AddTask({ onAddTask }) {
+export default function TaskForm({ onAddTask }) {
     const [text, setText] = useState('');
+    const {addTask} = useTodo();
+
+    const add = (e) => {
+        e.preventDefault();
+        addTask({ text, completed:false });
+        setText('')
+    }
 
     return (
         <>
             <form 
                 className="add-tasks" 
-                onSubmit={e => {
-                    e.preventDefault();
-                    if (text.trim()) {
-                        onAddTask(text);
-                        setText('');
-                    }
-                }}
+                onSubmit={add}
             >
                 <label htmlFor="task">New Task</label>
                 <input 
@@ -24,10 +26,6 @@ export default function AddTask({ onAddTask }) {
                     placeholder="Enter Task"
                 />
                 <button 
-                    onClick={() => {
-                        setText('');
-                        onAddTask(text)
-                    }}
                     type="submit"
                     className="btn"
                 >Add</button>
