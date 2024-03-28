@@ -14,20 +14,22 @@ export default function TaskForm() {
 
     return (
         <form 
-            className="flex" 
+            className="flex gap-4"
             onSubmit={add}
         >
             <input 
-                type="text" 
-                className="w-full border border-black/10 rounded-l-lg px-3 outline-none duration-150 bg-white/20 py-1.5"                
+                type="text"
+                id="input"
+                className="py-1.5"                
                 value={task} 
                 onChange={e => setTask(e.target.value)}
-                placeholder="Enter Task"
+                placeholder="Enter a new task"
             />
             <button 
                 type="submit"
-                className="rounded-r-lg px-3 py-1 bg-green-600 text-white shrink-0"
+                className=""
             >Add</button>
+            
         </form>
     );
 }

@@ -38,11 +38,11 @@ export default function TodoList() {
 
     return (
         <TaskProvider value={{ tasks, addTask, updateTask, deleteTask, toggleComplete }}>
-            <div className="min-h-screen py-8">
+            <div className="py-8">
                 <h1 className="text-2xl font-bold text-center mb-8 mt-2">What do you have to do ?</h1>
                 <TaskForm />
             </div>
-            <div className="flex flex-wrap gap-y-3">
+            <div className="w-4/5">
                 {tasks.map((task) => (
                     <div key={task.id}>
                         <Task task={task}/>
