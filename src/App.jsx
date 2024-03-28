@@ -21,7 +21,7 @@ export default function TodoList() {
 
     const toggleComplete = (id) => {
         setTasks((prev) => 
-            prev.map((t) => prevTask.id === id ? {...prevTask, completed: prevTask.completed } : prevTask)
+            prev.map((prevTask) => prevTask.id === id ? {...prevTask, completed: !prevTask.completed } : prevTask)
         )
     }
 
@@ -39,16 +39,21 @@ export default function TodoList() {
     return (
         <TaskProvider value={{ tasks, addTask, updateTask, deleteTask, toggleComplete }}>
             <div className="py-8">
-                <h1 className="text-2xl font-bold text-center mb-8 mt-2">What do you have to do ?</h1>
-                <TaskForm />
-            </div>
-            <div className="w-4/5">
-                {tasks.map((task) => (
-                    <div key={task.id}>
-                        <Task task={task}/>
+                <div className="w-full mx-auto">
+                    <h1 className="text-2xl font-bold text-center mb-8 mt-2">What do you have to do ?</h1>
+                    <div className="px-4">
+                       <TaskForm />                        
                     </div>
-                ))}
+                </div>
+                <div>
+                    {tasks.map((task) => (
+                        <div key={task.id}>
+                            <Task task={task}/>
+                        </div>
+                    ))}
+                </div>                
             </div>
+
         </TaskProvider>
     );
 }

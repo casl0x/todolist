@@ -31,7 +31,7 @@ export default function Task ({task}) {
     } else {
         taskContent = (
             <>
-                <p className="w-full bg-transparent">{msg}</p>
+                <p className={`w-full bg-transparent ${task.completed ? "line-through" : ""}`}>{msg}</p>
             </>
         );
     }
@@ -40,13 +40,13 @@ export default function Task ({task}) {
         <div className= 'flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-black' >
             <input 
                 type="checkbox"
-                className="cursor-pointer"
-                // checked={task.completed}
-                // onChange={toggleCompleted}
+                className="cursor-pointer accent-emerald-500/25"
+                checked={task.completed}
+                onChange={toggleCompleted}
             />
             {taskContent}
             <button
-                className="inline-flex justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50"
+                className="inline-flex justify-center items-center bg-gray-50 hover:bg-gray-100"
                 onClick={() => {
                     if (task.completed) return;
                     if (editing) {
@@ -60,7 +60,7 @@ export default function Task ({task}) {
                 {editing ? <FontAwesomeIcon icon={faSquareCheck} style={{color: "#000000",}} /> : <FontAwesomeIcon icon={faPenToSquare} style={{color: "#000000",}} />}
             </button>
             <button
-                className="inline-flex justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-"
+                className="inline-flex justify-center items-center bg-gray-50 hover:bg-gray-100"
                 onClick={() => deleteTask(task.id)}
             >
                 <FontAwesomeIcon icon={faTrashCan} style={{color: "#000000",}} />
