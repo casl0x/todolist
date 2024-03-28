@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useTodo } from "../ContextTask";
+import React, { useState } from "react";
+import { useTodo } from "../contexts";
 
 export default function Task ({task}) {
     const [editing, setEditing] = useState(false);
@@ -11,21 +11,41 @@ export default function Task ({task}) {
         setEditing(false);
     };
 
-    const toggleCompleted = () => { toggleComplete(task.id) }
+    const toggleCompleted = () => { 
+        toggleComplete(task.id) 
+    };
+
+    let taskContent;
+    if (editing) {
+        taskContent = (
+            <>
+                <input 
+                    type="text"
+                    value={task.text}
+                    onChange={(e) => setMsg(e.target.value)}
+                />
+                <button onClick={() => setEditing(false)}>Save</button>
+            </>
+        );
+    } else {
+        taskContent = (
+            <>
+                {msg}
+                <button onClick={() => setEditing(true)}>Edit</button>
+            </>
+        );
+    }
 
     return (
-        <div>
+        <div className={`flex text-black 
+        ${ task.completed ? "bg-[#c6e9a7]" : "bg-[#ccbed7]" }`} >
             <input 
                 type="checkbox"
+                className="cursor-pointer"
                 checked={task.completed}
                 onChange={toggleCompleted}
             />
-            <input 
-                type="text" 
-                className= {`${editing ? "edit-task" : "task"} ${task.completed ? "task-done" : "" }`} 
-                onChange={(e) => setMsg(e.target.value)}
-                readOnly={!editing}
-            />
+            {msg}
             <button 
                 onClick={() => {
                     if (task.completed) return;

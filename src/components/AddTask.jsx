@@ -1,33 +1,33 @@
-import { useState } from "react";
-import { useTodo } from "../ContextTask";
+import React, { useState } from "react";
+import { useTodo } from "../contexts/TaskContext";
 
 export default function TaskForm({ onAddTask }) {
-    const [text, setText] = useState('');
+    const [task, setTask] = useState('');
     const {addTask} = useTodo();
 
     const add = (e) => {
         e.preventDefault();
-        addTask({ text, completed:false });
-        setText('')
+        if (!task) return;
+        addTask({ task, completed:false });
+        setTask('')
     }
 
     return (
         <>
             <form 
-                className="add-tasks" 
+                className="flex" 
                 onSubmit={add}
             >
-                <label htmlFor="task">New Task</label>
                 <input 
                     type="text" 
-                    id="task"                
-                    value={text} 
-                    onChange={e => setText(e.target.value)}
+                    className="w-full border border-black/10 rounded-l-lg px-3 outline-none duration-150 bg-white/20 py-1.5"                
+                    value={task} 
+                    onChange={e => setTask(e.target.value)}
                     placeholder="Enter Task"
                 />
                 <button 
                     type="submit"
-                    className="btn"
+                    className="rounded-r-lg px-3 py-1 bg-green-600 text-white shrink-0"
                 >Add</button>
             </form>
         </>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { TodoProvider } from "./ContextTask";
+import './app.css'
+import { TodoProvider } from "./contexts/TaskContext";
 import TaskForm from "./components/AddTask";
 import Task from "./components/TaskList";
 
@@ -37,11 +38,11 @@ export default function TodoList() {
 
     return (
         <TodoProvider value={{ tasks, addTask, updateTask, deleteTask, toggleComplete }}>
-            <div>
-                <h1>What do you have to do ?</h1>
+            <div className="min-h-screen py-8">
+                <h1 className="text-2xl font-bold text-center mb-8 mt-2">What do you have to do ?</h1>
                 <TaskForm />
             </div>
-            <div>
+            <div className="flex flex-wrap gap-y-3">
                 {tasks.map((task) => (
                     <div key={task.id}>
                         <Task task={task}/>
