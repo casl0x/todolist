@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useTodo } from "../contexts";
+import { useTask } from "../contexts";
 
 export default function Task ({task}) {
     const [editing, setEditing] = useState(false);
     const [msg, setMsg ] = useState(task.task)
-    const {updateTask, deleteTask, toggleComplete} = useTodo();
+    const {updateTask, deleteTask, toggleComplete} = useTask();
 
     const editTask = () => {
         updateTask(task.id, {...task, task: msg });

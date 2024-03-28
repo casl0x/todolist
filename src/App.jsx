@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import './app.css'
-import { TodoProvider } from "./contexts/TaskContext";
+import { TaskProvider } from "./contexts";
 import TaskForm from "./components/AddTask";
 import Task from "./components/TaskList";
 
@@ -12,7 +12,7 @@ export default function TodoList() {
     }
 
     const updateTask = (id, task) => {
-        setTasks((prev) => prev.map((t) => (t.id === id ? task : t )))
+        setTasks((prev) => prev.map((prevTask) => (prevTask.id === id ? task : prevTask )))
     }
 
     const deleteTask = (id) => {
@@ -21,7 +21,7 @@ export default function TodoList() {
 
     const toggleComplete = (id) => {
         setTasks((prev) => 
-            prev.map((t) => t.id === id ? {...t, completed: t.completed } : t)
+            prev.map((t) => prevTask.id === id ? {...prevTask, completed: prevTask.completed } : prevTask)
         )
     }
 
@@ -37,7 +37,7 @@ export default function TodoList() {
     }, [tasks])
 
     return (
-        <TodoProvider value={{ tasks, addTask, updateTask, deleteTask, toggleComplete }}>
+        <TaskProvider value={{ tasks, addTask, updateTask, deleteTask, toggleComplete }}>
             <div className="min-h-screen py-8">
                 <h1 className="text-2xl font-bold text-center mb-8 mt-2">What do you have to do ?</h1>
                 <TaskForm />
@@ -49,6 +49,6 @@ export default function TodoList() {
                     </div>
                 ))}
             </div>
-        </TodoProvider>
+        </TaskProvider>
     );
 }
