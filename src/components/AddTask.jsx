@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTodo } from "../ContextTask";
 
-export default function TaskForm({ onAddTask }) {
+export default function TaskForm() {
     const [text, setText] = useState('');
     const {addTask} = useTodo();
 
@@ -22,7 +22,7 @@ export default function TaskForm({ onAddTask }) {
                     type="text" 
                     id="task"                
                     value={text} 
-                    onChange={e => setText(e.target.value)}
+                    onChange={(e) => setText(e.target.value)}
                     placeholder="Enter Task"
                 />
                 <button 
