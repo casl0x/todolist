@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { TodoProvider } from "./ContextTask";
+import '../styles/main.css'
+import { TaskProvider } from "./contexts";
 import TaskForm from "./components/AddTask";
 import Task from "./components/TaskList";
 
@@ -11,7 +12,7 @@ export default function TodoList() {
     }
 
     const updateTask = (id, task) => {
-        setTasks((prev) => prev.map((t) => (t.id === id ? task : t )))
+        setTasks((prev) => prev.map((prevTask) => (prevTask.id === id ? task : prevTask )))
     }
 
     const deleteTask = (id) => {
@@ -20,7 +21,7 @@ export default function TodoList() {
 
     const toggleComplete = (id) => {
         setTasks((prev) => 
-            prev.map((t) => t.id === id ? {...t, completed: t.completed } : t)
+            prev.map((prevTask) => prevTask.id === id ? {...prevTask, completed: !prevTask.completed } : prevTask)
         )
     }
 
@@ -36,18 +37,21 @@ export default function TodoList() {
     }, [tasks])
 
     return (
-        <TodoProvider value={{ tasks, addTask, updateTask, deleteTask, toggleComplete }}>
+        <TaskProvider value={{ tasks, addTask, updateTask, deleteTask, toggleComplete }}>
             <div>
-                <h1>What do you have to do ?</h1>
-                <TaskForm />
+                <div className="header">
+                    <h1 className="title">What do you have to do ?</h1>
+                    <TaskForm />                        
+                </div>
+                <div className="tasklist">
+                    {tasks.map((task) => (
+                        <div key={task.id}>
+                            <Task task={task}/>
+                        </div>
+                    ))}
+                </div>                
             </div>
-            <div>
-                {tasks.map((task) => (
-                    <div key={task.id}>
-                        <Task task={task}/>
-                    </div>
-                ))}
-            </div>
-        </TodoProvider>
+
+        </TaskProvider>
     );
 }

@@ -1,0 +1,12 @@
+@import './utils/reset';
+@import './utils/variables';
+
+#root {
+    margin: 1rem;
+    width: 100vw;
+}
+
+@import './components/header';
+@import './components/button';
+
+@import './components/task';
