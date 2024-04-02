@@ -2,7 +2,6 @@
 
 ## About the Project :
 DoItNow is a application to lists all the things you have to do.
-It's my first React and Vite project :) 
 
 ![DoItNow Todo App](src/img/preview.png)
 
@@ -23,9 +22,14 @@ Before you start, make sure you have Node.js installed → [Click here to instal
     git clone git@github.com:casl0x/todolist.git
     ```
 2. Install NPM packages
-   ```sh
-   npm install
+    ```sh
+    npm install
+    ```
+3. Start your local development server
+    ```sh
+   npm run dev 
    ```
+4. Have fun ;) 
 
 ## Features
 - [x] Add a new task to the list
