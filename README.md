@@ -17,15 +17,15 @@ Here's how to install this project in local ⬇️
 Before you start, make sure you have Node.js installed → [Click here to install ](https://nodejs.org/en/download)
 
 ### Installation
-1. Clone the repo
+1. Clone the repo :
     ``` sh
     git clone git@github.com:casl0x/todolist.git
     ```
-2. Install NPM packages
+2. Install NPM packages :
     ```sh
     npm install
     ```
-3. Start your local development server
+3. Start your local development server :
     ```sh
    npm run dev 
    ```
@@ -33,5 +33,6 @@ Before you start, make sure you have Node.js installed → [Click here to instal
 
 ## Features
 - [x] Add a new task to the list
-- [x] Edit and delete your task 
+- [x] Edit and delete button for each task 
 - [ ] Filter your task
+- [ ] Button to delete all completed tasks
