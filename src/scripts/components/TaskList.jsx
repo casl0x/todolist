@@ -22,6 +22,7 @@ export default function Task ({task}) {
         taskContent = (
             <input 
                 type="text"
+                name="editing task"
                 className="editing"
                 value={msg}
                 onChange={(e) => setMsg(e.target.value)}
@@ -61,7 +62,7 @@ export default function Task ({task}) {
                     }}
                     disabled={task.completed}
                 >
-                    {editing ? <FontAwesomeIcon icon={faSquareCheck} className="btn-edit-done" /> : <FontAwesomeIcon icon={faPenToSquare} className="btn-edit-editing" />}
+                    {editing ? <FontAwesomeIcon icon={faSquareCheck} className="btn-edit-done" /> : <FontAwesomeIcon icon={faPenToSquare} className="btn-edit-todo" />}
                 </button>
                 <button
                     className="btn btn-delete"

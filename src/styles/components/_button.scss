@@ -3,15 +3,18 @@
     border: none;
     cursor: pointer;
     &-add {
-       &-icon{
-        &:hover{
+       &-icon:hover{
             color: $task-done;
-        }
        } 
     }
     &-edit {
         &:disabled {
         display: none;
+        }
+    }
+    &-delete {
+        &-icon:hover{
+            color: $task-delete;
         }
     }
 }

@@ -94,6 +94,9 @@ table {
 .btn-edit:disabled {
   display: none;
 }
+.btn-delete-icon:hover {
+  color: #990000;
+}
 
 .tasklist {
   display: flex;
@@ -118,6 +121,7 @@ table {
 }
 .task-done {
   background-color: #bada55;
+  border: none;
 }
 
 .content {
