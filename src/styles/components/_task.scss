@@ -1,10 +1,38 @@
+.tasklist {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-left: 2rem;
+}
+.subtitle {
+    font: {
+        weight: 600;
+        size: 1.5rem;
+    }
+    text-decoration: underline;
+}
+
 .task {
-    background-color: aqua;
-    margin-top: 5vh;
     padding: 0.5rem;
-    width: 80%;
+    width: 90%;
     display: flex;
     justify-content: space-between;
     border: 1px solid black;
     border-radius: 8px;
+    &-done{
+        background-color: $task-done;
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    font: {
+        size: 1rem
+    }
+}
+
+.done {
+    text-decoration: line-through;
 }

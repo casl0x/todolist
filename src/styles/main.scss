@@ -1,12 +1,19 @@
 @import './utils/reset';
 @import './utils/variables';
 
-#root {
-    margin: 1rem;
-    width: 100vw;
+@import './components/header';
+@import './components/form';
+@import './components/button';
+@import './components/task';
+
+body {
+    font: {
+        family: $font;
+        weight: 400;
+    }
+    background-color: $background;    
 }
 
-@import './components/header';
-@import './components/button';
-
-@import './components/task';
+#root {
+    margin: 0.5rem;
+}

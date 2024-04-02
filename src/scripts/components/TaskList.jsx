@@ -22,7 +22,7 @@ export default function Task ({task}) {
         taskContent = (
             <input 
                 type="text"
-                className="edit"
+                className="editing"
                 value={msg}
                 onChange={(e) => setMsg(e.target.value)}
             />
@@ -31,40 +31,46 @@ export default function Task ({task}) {
     } else {
         taskContent = (
             <>
-                <p className={`task-content ${task.completed ? "done" : ""}`}>{msg}</p>
+                <p className={`text ${task.completed ? "done" : ""}`}>{msg}</p>
             </>
         );
     }
 
     return (
-        <div className= 'task' >
-            <input 
-                type="checkbox"
-                className="check"
-                checked={task.completed}
-                onChange={toggleCompleted}
-            />
-            {taskContent}
-            <button
-                className="btn btn-edit"
-                onClick={() => {
-                    if (task.completed) return;
-                    if (editing) {
-                        editTask();
-                    } else {
-                        setEditing((prev) => !prev);
-                    }
-                }}
-                disabled={task.completed}
-            >
-                {editing ? <FontAwesomeIcon icon={faSquareCheck} style={{color: "#000000",}} /> : <FontAwesomeIcon icon={faPenToSquare} style={{color: "#000000",}} />}
-            </button>
-            <button
-                className="btn btn-delete"
-                onClick={() => deleteTask(task.id)}
-            >
-                <FontAwesomeIcon icon={faTrashCan} style={{color: "#000000",}} />
-            </button>                                
+        <div className={`task ${task.completed ? "task-done" : ""}`} >
+            <div className="content">
+                <input 
+                    type="checkbox"
+                    name="check task"
+                    className="check"
+                    checked={task.completed}
+                    onChange={toggleCompleted}
+                />
+                {taskContent}                
+            </div>
+            <div>
+                <button
+                    className="btn btn-edit"
+                    onClick={() => {
+                        if (task.completed) return;
+                        if (editing) {
+                            editTask();
+                        } else {
+                            setEditing((prev) => !prev);
+                        }
+                    }}
+                    disabled={task.completed}
+                >
+                    {editing ? <FontAwesomeIcon icon={faSquareCheck} className="btn-edit-done" /> : <FontAwesomeIcon icon={faPenToSquare} className="btn-edit-editing" />}
+                </button>
+                <button
+                    className="btn btn-delete"
+                    onClick={() => deleteTask(task.id)}
+                >
+                    <FontAwesomeIcon icon={faTrashCan} className="btn-delete-icon" />
+                </button>                 
+            </div>
+                               
         </div>
     )
 }

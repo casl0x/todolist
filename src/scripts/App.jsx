@@ -40,10 +40,11 @@ export default function TodoList() {
         <TaskProvider value={{ tasks, addTask, updateTask, deleteTask, toggleComplete }}>
             <div>
                 <div className="header">
-                    <h1 className="title">What do you have to do ?</h1>
+                    <h1 className="title">Todo App</h1>
                     <TaskForm />                        
                 </div>
                 <div className="tasklist">
+                    <h2 className="subtitle">What do you have to do ?</h2>
                     {tasks.map((task) => (
                         <div key={task.id}>
                             <Task task={task}/>

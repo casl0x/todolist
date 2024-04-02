@@ -19,17 +19,21 @@ export default function TaskForm() {
             className="form"
             onSubmit={add}
         >
+            <label htmlFor="add">Add a new task :</label>
             <input 
                 type="text"
+                id="add"
+                name="add task"
                 className="input"                
                 value={task} 
                 onChange={e => setTask(e.target.value)}
-                placeholder="Enter a new task"
+                placeholder="enter your task here"
             />
             <button 
                 type="submit"
-                className="btn btn-add"
-            ><FontAwesomeIcon icon={faPlus} style={{color: "#000000",}} /></button>    
+                className="btn btn-add" >
+                <FontAwesomeIcon icon={faPlus} className="btn-add-icon" />
+            </button>    
         </form>
     );
 }
