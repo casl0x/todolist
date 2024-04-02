@@ -1,4 +1,4 @@
 import TaskForm from "./AddTask";
-import Task from "./TaskList";
+import Task from "./Task";
 
 export {TaskForm, Task}

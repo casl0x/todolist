@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import '../styles/main.css'
 import { TaskProvider } from "./contexts";
 import TaskForm from "./components/AddTask";
-import Task from "./components/TaskList";
+import Task from "./components/Task";
 
 export default function TodoList() {
     const [tasks, setTasks] = useState([]);

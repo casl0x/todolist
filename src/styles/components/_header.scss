@@ -14,5 +14,18 @@
     font: {
         weight: 900;
         size: 2rem;
-    }    
+    };
+    position: relative;
+    z-index: 1;
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: 2rem;
+        bottom: 1.25rem;
+        width: 10rem;
+        height: 0.75rem;
+        transform: skew(25deg);
+        background: $title;
+    } 
 }
