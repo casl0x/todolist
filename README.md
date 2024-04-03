@@ -1,7 +1,7 @@
-# DoItNow 📝
+# TodoApp 📝
 
 ## About the Project :
-DoItNow is a application to lists all the things you have to do.
+TodoApp is a application to lists all the things you have to do.
 
 ![DoItNow Todo App](src/img/preview.png)
 
