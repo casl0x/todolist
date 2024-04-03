@@ -6,9 +6,9 @@ DoItNow is a application to lists all the things you have to do.
 ![DoItNow Todo App](src/img/preview.png)
 
 ### Built with : 
-* React - <img src="https://skillicons.dev/icons?i=react" alt="image" style="width:20px;height:auto;">
-* Vite - <img src="https://skillicons.dev/icons?i=vite" alt="image" style="width:20px;height:auto;">
-* Sass - <img src="https://skillicons.dev/icons?i=sass" alt="image" style="width:20px;height:auto;">
+* React - <img src="https://skillicons.dev/icons?i=react" alt="image" style="width:auto;height:20px;">
+* Vite - <img src="https://skillicons.dev/icons?i=vite" alt="image" style="width:auto;height:20px;">
+* Sass - <img src="https://skillicons.dev/icons?i=sass" alt="image" style="width:auto;height:20px;">
 
 ## Getting Started
 Here's how to install this project in local ⬇️
