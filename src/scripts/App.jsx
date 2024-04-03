@@ -40,7 +40,7 @@ export default function TodoList() {
         <TaskProvider value={{ tasks, addTask, updateTask, deleteTask, toggleComplete }}>
             <div>
                 <div className="header">
-                    <h1 className="title">DoItNow</h1>
+                    <h1 className="title">TodoApp</h1>
                     <TaskForm />                        
                 </div>
                 <div className="tasklist">
