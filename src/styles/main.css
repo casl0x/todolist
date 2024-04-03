@@ -99,6 +99,7 @@ table {
 .btn {
   background: transparent;
   border: none;
+  color: black;
   cursor: pointer;
 }
 .btn-add-icon:hover {
