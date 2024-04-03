@@ -1,7 +1,9 @@
 # TodoApp 📝
 
 ## About the Project :
-TodoApp is a application to lists all the things you have to do.
+TodoApp is a application to lists all the things you have to do. Click here to test it → [📝](https://todoapp-orpin-two.vercel.app/).
+
+**Deploy with :** [Vercel](https://vercel.com/)
 
 ![DoItNow Todo App](src/img/preview.png)
 
